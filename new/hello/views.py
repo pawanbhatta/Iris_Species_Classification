@@ -43,24 +43,24 @@ def home(request):
 
         file1 = open('hello/iris_pkl_1.pkl', 'rb')
         loaded_model = joblib.load(file1)
-        print(loaded_model.predict([[6, 2.9, 5, 1.5]]))
+        # print(loaded_model.predict([[6, 2.9, 5, 1.5]]))
 
         species = loaded_model.predict(
-            [[length_sepal, width_sepal, length_petal, width_petal]])
+            [[length_sepal, width_sepal, length_petal, width_petal]])[0]
         # x.close()
 
         iris_instance = IrisPlants.objects.create(
             length_petal=length_petal, length_sepal=length_sepal, width_petal=width_petal, width_sepal=width_sepal, species=species)
 
-        iris_instance.save()
+        # iris_instance.get_species()
 
-        obj = IrisPlants.objects.get(length_petal=length_petal, length_sepal=length_sepal,
-                                     width_petal=width_petal, width_sepal=width_sepal, species=species)
+        # obj = IrisPlants.objects.get(length_petal=length_petal, length_sepal=length_sepal,
+        #                              width_petal=width_petal, width_sepal=width_sepal)
 
-        return render(request, 'home.html', {"iris": obj})
+        return render(request, 'home.html', {"iris": iris_instance})
 
     else:
-        return render(request, "home.html")
+        return render(request, 'home.html')
 
 
 def chart(request):

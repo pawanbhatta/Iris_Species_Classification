@@ -13,7 +13,8 @@ class IrisPlants(models.Model):
         choices=((0, "Setosa"), (1, "Versicolor"), (2, "Virginica"),))
 
     # def get_species(self):
-    #     return get_species_display()
+    #     self.save()
+    # return get_species_display()
 
     # def __init__(self):
     #     file = pd.open('model.pkl')
