@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Django Highcharts Example</title>
+</head>
+
+<body>
+    <h1>welcome</h1>
+    <div id="container"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Titanic Survivors by Ticket Class'
+            },
+            xAxis: {
+                categories: {{ categories| safe }}
+      },
+            series: [{
+                name: 'setosa',
+                data: {{ setosa }},
+            color: 'green'
+      }, {
+                name: 'versicolor',
+                data: {{ versicolor }},
+            color: 'red'
+      }, {
+                name: 'virginica',
+                data: {{ virginica }},
+            color: 'blue'
+        }]
+  });
+    </script>
+</body>
+
+</html>
