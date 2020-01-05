@@ -11,12 +11,3 @@ class IrisPlants(models.Model):
     width_sepal = models.FloatField()
     species = models.IntegerField(
         choices=((0, "Setosa"), (1, "Versicolor"), (2, "Virginica"),))
-
-    # def get_species(self):
-    #     self.save()
-    # return get_species_display()
-
-    # def __init__(self):
-    #     file = pd.open('model.pkl')
-    #     species = file.predict()
-    #     file.close()

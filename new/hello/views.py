@@ -15,47 +15,19 @@ import joblib
 def home(request):
     if request.method == 'POST':
 
-        # The below code is only to input the data from dataset into the database,,, dont use this code again unless until required
-        # iris = pd.read_csv("iris.csv")
-
-        # for i in range(len(iris['species'])):
-        #     if iris['species'][i] == 'setosa':
-        #         species = 0
-        #     elif iris['species'][i] == 'versicolor':
-        #         species = 1
-        #     else:
-        #         species = 2
-        #     iris_instance = IrisPlants.objects.create(
-        #         length_petal=iris['petal_length'][i], length_sepal=iris['sepal_length'][i], width_petal=iris['petal_width'][i], width_sepal=iris['sepal_width'][i], species=species)
-        #     iris_instance.save()
-
         length_petal = request.POST['petal_length']
         length_sepal = request.POST['sepal_length']
         width_petal = request.POST['petal_width']
         width_sepal = request.POST['sepal_width']
 
-        # model_file = open('hello/model.pkl', 'rb')
-
-        # with open('hello/model.pkl', 'rb') as f:
-        #     x = pickle.load(f)
-        # loaded_model = pickle.load(open('hello/model.pkl', 'rb'))
-        # loaded_model = joblib.load('hello/iris_pkl_1.pkl')
-
         file1 = open('hello/iris_pkl_1.pkl', 'rb')
         loaded_model = joblib.load(file1)
-        # print(loaded_model.predict([[6, 2.9, 5, 1.5]]))
 
         species = loaded_model.predict(
             [[length_sepal, width_sepal, length_petal, width_petal]])[0]
-        # x.close()
 
         iris_instance = IrisPlants.objects.create(
             length_petal=length_petal, length_sepal=length_sepal, width_petal=width_petal, width_sepal=width_sepal, species=species)
-
-        # iris_instance.get_species()
-
-        # obj = IrisPlants.objects.get(length_petal=length_petal, length_sepal=length_sepal,
-        #                              width_petal=width_petal, width_sepal=width_sepal)
 
         return render(request, 'home.html', {"iris": iris_instance})
 
@@ -66,7 +38,6 @@ def home(request):
 def chart(request):
     iris = pd.read_csv("iris.csv")
     print(iris.shape)
-    value_counts = iris['species'].value_counts()
     sepal_lengths = iris['sepal_length']
     sepal_widths = iris['sepal_width']
 
@@ -96,12 +67,6 @@ def chart(request):
 
     categories = list()
     categories.append('species')
-# why this shit does not append string
-
-    print(setosa)
-    print(versicolor)
-    print(virginica)
-    print(categories)
 
     return render(request, 'chart.html', {
         'categories': json.dumps(categories),
